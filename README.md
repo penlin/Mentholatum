@@ -1,5 +1,9 @@
 # Mentholatum
 
+### Requirement
+* Python 2.7
+* Bottle package
+
 ### Web Service API
 * GET, /ws/calendar?month=[1-12] : Get total calendar of a certain month
 * GET, /ws/calendar?month=[1-12]&user=xxx : Get xxx's personal calendar of a certain month
