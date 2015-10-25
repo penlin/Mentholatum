@@ -6,7 +6,7 @@ from bottle import route, run, template, get
 
 @get('/')
 def test():
-	return template('tpl/mentholatum')
+  return template('tpl/mentholatum')
 
 if __name__ == '__main__':
   port = int(os.environ.get('PORT', 8080))
