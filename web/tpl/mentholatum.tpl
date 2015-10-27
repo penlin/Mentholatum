@@ -1,11 +1,13 @@
 <html>
 <head>
-  <link rel='stykesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'/>
+  <meta charset='utf-8'/>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css'/>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css' />
   <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.print.css' media='print'/>
   <script type='text/javascript' src='https://cdn.rawgit.com/moment/moment/develop/min/moment.min.js'></script>
   <script type='text/javascript' src='https://code.jquery.com/jquery.min.js'></script>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/lang-all.js'></script>
   <script type='text/javascript'>
     $(document).ready(function() {
       // page is now ready, initialize the calendar...
@@ -16,10 +18,13 @@
 		  left: 'prev,next today',
 		  center: 'title',
 		  right: 'month,agendaWeek,agendaDay'
-	    },
-		//defaultDate: '2015-02-12',
-		//editable: true,
-		eventLimit: true // allow "more" link when too many events
+		},
+		lang: 'zh-tw', 
+		buttonIcons: false, // show the prev/ next text instead of arrow icon
+		editable: true,
+		eventLimit: true, // allow "more" link when too many events
+		dayClick: function(date, jsEvent, view){alert('Clicked on: ' + date.format());},
+		eventClick: function(calEvent, jsEvent, view){alert('Clicked on: ' + calEvent.title);}
 		//events: []
       });
     });
