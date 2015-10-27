@@ -14,18 +14,18 @@
       $('#calendar').fullCalendar({
         // put your options and callbacks here
         theme: true,
-		    header: {
-		      left: 'prev,next today',
-		      center: 'title',
-		      right: 'month,agendaWeek,agendaDay'
-		    },
-		    lang: 'zh-tw', 
-		    buttonIcons: false, // show the prev/ next text instead of arrow icon
-		    editable: true,
-		    eventLimit: true, // allow "more" link when too many events
-		    dayClick: function(date, jsEvent, view){alert('Clicked on: ' + date.format());},
-		    eventClick: function(calEvent, jsEvent, view){alert('Clicked on: ' + calEvent.title);}
-		    //events: []
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        lang: 'zh-tw', 
+        buttonIcons: false, // show the prev/ next text instead of arrow icon
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        dayClick: function(date, jsEvent, view){alert('Clicked on: ' + date.format());},
+        eventClick: function(calEvent, jsEvent, view){alert('Clicked on: ' + calEvent.title);}
+        //events: []
       });
     });
   </script>
