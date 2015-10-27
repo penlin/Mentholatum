@@ -1,19 +1,44 @@
 <html>
 <head>
+  <link rel='stykesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'/>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css' />
-  <script type='text/javascript' src='https://code.jquery.com/jquery.min.js'></script>
+  <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.print.css' media='print'/>
   <script type='text/javascript' src='https://cdn.rawgit.com/moment/moment/develop/min/moment.min.js'></script>
+  <script type='text/javascript' src='https://code.jquery.com/jquery.min.js'></script>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js'></script>
   <script type='text/javascript'>
     $(document).ready(function() {
       // page is now ready, initialize the calendar...
       $('#calendar').fullCalendar({
         // put your options and callbacks here
-      })
+        theme: true,
+		header: {
+		  left: 'prev,next today',
+		  center: 'title',
+		  right: 'month,agendaWeek,agendaDay'
+	    },
+		//defaultDate: '2015-02-12',
+		//editable: true,
+		eventLimit: true // allow "more" link when too many events
+		//events: []
+      });
     });
   </script>
+  <style>
+	body {
+  	  margin: 40px 10px;
+	  padding: 0;
+	  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+	  font-size: 14px;
+    }
+
+	#calendar {
+	  max-width: 900px;
+	  margin: 0 auto;
+	}
+  </style>
 </head>
 <body>
-  <div id='calendar'></div>	
+  <div id="calendar" class="fc fc-ltr ui-widget"></div>	
 </body>
 </html>
