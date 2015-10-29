@@ -24,10 +24,10 @@
         buttonIcons: false, // show the prev/ next text instead of arrow icon
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-		dayClick: function(date, jsEvent, view){
+        dayClick: function(date, jsEvent, view){
           $('#calendar').fullCalendar('gotoDate', date);
           $('#calendar').fullCalendar('changeView', "agendaDay");
-		},
+        },
         eventClick: function(calEvent, jsEvent, view){alert('Clicked on: ' + calEvent.title);},
         events: events
       });
