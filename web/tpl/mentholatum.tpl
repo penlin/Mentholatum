@@ -10,7 +10,8 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/lang-all.js'></script>
   <script type='text/javascript'>
     $(document).ready(function() {
-      // page is now ready, initialize the calendar...
+      var events = {{ !schedule_json_arr }};
+  	  // page is now ready, initialize the calendar...
       $('#calendar').fullCalendar({
         // put your options and callbacks here
         theme: true,
@@ -27,8 +28,8 @@
           $('#calendar').fullCalendar('gotoDate', date);
           $('#calendar').fullCalendar('changeView', "agendaDay");
 		},
-        eventClick: function(calEvent, jsEvent, view){alert('Clicked on: ' + calEvent.title);}
-        //events: []
+        eventClick: function(calEvent, jsEvent, view){alert('Clicked on: ' + calEvent.title);},
+        events: events
       });
     });
   </script>
