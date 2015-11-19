@@ -9,16 +9,19 @@ import random
 from calendar import monthrange
 
 class_key = ['白班', '小夜', '大夜']
-num_constraint = {'白班': 3, '小夜': 2, '大夜': 2}
+num_constraint = {'白班': 3, '小夜': 2, '大夜': 3}
 DN = '大夜'
 SN = '小夜'
 BB = '白班'
+N = 'N'
 SR_list = ['N2', 'N4', 'N']
+output_format = {'白班': "7-3'", '小夜': "3-11'", '大夜': "11-7'"}
+week_day = {0: '日', 1:'一', 2:'二', 3:'三', 4:'四', 5:'五', 6:'六'}
 
 def arrange(nurse_path, year, month):
-  print monthrange(year, month)
+  #print monthrange(year, month)
   weekday, days = monthrange(year, month)
-  print weekday, days
+  #print weekday, days
   results = dict()
   for x in xrange(1, days+1):
     results[x] = {'白班': list(), '小夜': list(), '大夜': list()}
@@ -28,6 +31,7 @@ def arrange(nurse_path, year, month):
   reserved_class = dict()
   offday_dict = dict()
   personal_class_info = dict()
+  bau_class = dict()
 
   with codecs.open(nurse_path, 'r', encoding='utf-8') as f:
     for line in f:
@@ -37,76 +41,109 @@ def arrange(nurse_path, year, month):
       names.append(x[0])
       levels[x[0]] = x[1]
       reserved_class[x[0]] = x[2]
+      bau_class[x[0]] = 0
       offday_dict[x[0]] = x[3:]
       personal_class_info[x[0]] = dict()
 
+  op = list(names)
   continue_days = dict()
   weekend_off = dict()
   for name in names:
     continue_days[name] = 0
-    offday_list = []
     weekend_off[name] = 0
-    for x in offday_dict[name]:
-      offday_list.append(int(x))
+    
 
   # TODO(Bruce Kuo): Arrange
   for day in xrange(1, days+1):
     random.shuffle(names)
     for name in names:
+      offday_list = []
+      for x in offday_dict[name]:
+        offday_list.append(int(x))
       # 最多五天休一天
-      if continue_days[name] >= 5:
+      #print offday_list
+      if day in offday_list or continue_days[name] >= 5:
         continue_days[name] = 0
         continue
 
       # 天數太多, 休假
       if len(personal_class_info.keys()) >= days - 8:
+        continue_days[name] = 0
         continue
 
       #包班優先
-      if len(results[day][reserved_class[name].encode('utf-8')]) < num_constraint[reserved_class[name].encode('utf-8')]:
+      if reserved_class[name].encode('utf-8') != 'N' and bau_class[name] < 17 and \
+        len(results[day][reserved_class[name].encode('utf-8')]) < num_constraint[reserved_class[name].encode('utf-8')]:
+        
         results[day][reserved_class[name].encode('utf-8')].append(name)
         personal_class_info[name][day] = reserved_class[name].encode('utf-8')
         continue_days[name] += 1
+        bau_class[name] += 1
         continue
 
+      hasClass = False
       for key in class_key:
+        if name.encode('utf-8') == '陳嬿菱' and key != '白班':
+          continue
         if len(results[day][key]) < num_constraint[key]:
           # 一天不能排兩班以上
           if personal_class_info[name].has_key(day):
-            continue_days[name] = 0
             continue
           
           # 大夜不接白班
           if key == BB and \
              personal_class_info[name].has_key(day-1) and \
              personal_class_info[name][day-1] == DN:
-             continue_days[name] = 0
              continue;
 
           # 包大夜不上小夜
           if key == SN and reserved_class[name].encode('utf-8') == DN:
-            continue_days[name] = 0
             continue
 
           # 包小夜不上大夜
           if key == DN and reserved_class[name].encode('utf-8') == SN:
-            continue_days[name] = 0
             continue
 
           # 至少一個Sr
+          if len(results[day][key]) == 0 and levels[name] not in SR_list:
+            continue_days[name] = 0
+            continue
+
 
           results[day][key].append(name)
           personal_class_info[name][day] = key
           continue_days[name] += 1
+          hasClass = True
+          if key == reserved_class[name].encode('utf-8'):
+            bau_class[name] += 1
+      if not hasClass:
+        continue_days[name] = 0
 
-  for k, v in personal_class_info.iteritems():
-    print k, len(v)
+  header = "人員"
+  wkd = weekday
+  for day in xrange(1, days + 1):
+    header += "," + str(month) + "/" + str(day) + '(' + week_day[wkd%7] + ')'
+    wkd += 1
+  print header
+  for x in op:
+    if not personal_class_info.has_key(x):
+      continue
+    k = x
+    v = personal_class_info[x]
+    output = k
+    for day in xrange(1,days+1):
+      if v.has_key(day):
+        output += "," + output_format[v[day]]
+      else:
+        output += ",OFF"
+    #print len(output.split(','))
+    print output.encode('utf-8')
   #print results
   with codecs.open("result.json", "w", encoding='utf-8') as f:
     for k,v in results.iteritems():
       print "day " + str(k)
       for a, b in v.iteritems():
-        print a, ",".join(b)
+        print a+",", ",".join(b).encode("utf-8")
     f.write(json.dumps(results))
   #print json.dumps(results)
   return results
