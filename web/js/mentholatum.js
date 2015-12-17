@@ -31,3 +31,4 @@ function initFullCalendar(events) {
     events: events
   });
 }
+
