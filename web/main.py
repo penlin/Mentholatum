@@ -34,9 +34,12 @@ def tbl_layout(year, month):
   for idx in xrange(9, 17):
     result['穴宇'].append('3-11')
     result['魯斯'].append('OFF')
-  for idx in xrange(17, 32):
+  for idx in xrange(17, 25):
     result['穴宇'].append('OFF')
     result['魯斯'].append('11-7')
+  for idx in xrange(25,32):
+    result['穴宇'].append('7-3')
+    result['魯斯'].append('3-11')
   return template('tpl/mentholatum-tbl', result_json = json.dumps(result), m_year = year, m_month = month)
 
 
