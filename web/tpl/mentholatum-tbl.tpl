@@ -9,7 +9,6 @@
     $(document).ready(function() {
       var result = {{ !result_json }};
       // page is now ready, initialize the calendar...
-      console.log(result);
 	  initMentholatumTbl(result);
       
       var lastmonth = (gCurMonth === 1)?((gCurYear-1).toString()+'-12'):(gCurYear.toString()+'-'+(gCurMonth-1).toString());

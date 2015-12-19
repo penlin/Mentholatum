@@ -32,6 +32,5 @@ function initMentholatumTbl(result) {
   headHTML += '</tr></thead>';
   bodyHTML += '</tbody>';
   var innerHTML =  '<table class="schedule-tbl">' + headHTML + bodyHTML + '</table>';
-  console.log(innerHTML);
   $('#Mentholatum-tbl').html(innerHTML);
 }
