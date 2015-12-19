@@ -2,35 +2,42 @@
 function initMentholatumTbl(result) {
   var headHTML = '<thead><tr><th scope="col" class="Name">名字</th>';
   var bodyHTML = '<tbody>';
-  var day = 1;
+  var headerRenderDone = false;
   $.each(result, function(name, schedule){
     bodyHTML += '<tr class="row"><td class="name-header">' + name + '</td>';
+    var day = 1;
 	schedule.forEach( function(s){
-      if (day <= 31) {
-        headHTML += '<th scope="col" class="Date">' + day + '</th>'
-        day ++;
+      if (!headerRenderDone) {
+        headHTML += '<th scope="col" class="Date d' + day + '">' + day + '</th>'
       }
-      bodyHTML += '<td class="normal ';
+      bodyHTML += '<td class="normal d' + day;
       switch(s){
         case '7-3':
-          bodyHTML += 'day ';
+          bodyHTML += ' day ';
           break;
         case '3-11':
-          bodyHTML += 'night ';
+          bodyHTML += ' night ';
           break;
         case '11-7':
-          bodyHTML += 'dawn ';
+          bodyHTML += ' dawn ';
           break;
         case 'OFF':
-          bodyHTML += 'break ';
+          bodyHTML += ' break ';
           break;
       }
       bodyHTML += '">' + s + '</td>';
+      day++;
     });
     bodyHTML += '</tr>';
+    headerRenderDone = true;
   });
   headHTML += '</tr></thead>';
   bodyHTML += '</tbody>';
   var innerHTML =  '<table class="schedule-tbl">' + headHTML + bodyHTML + '</table>';
   $('#Mentholatum-tbl').html(innerHTML);
+
+  d = new Date();
+  if (d.getFullYear() === gCurYear && d.getMonth() === (gCurMonth-1)){
+    $('.d' + d.getDate()).addClass('current-date');
+  }
 }

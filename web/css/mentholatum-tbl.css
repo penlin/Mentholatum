@@ -65,21 +65,22 @@ body {
 }
 
 .schedule-tbl th {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 17px;
-	line-height: 20px;
-	font-style: normal;
-	font-weight: normal;
-	text-align: center;
-	text-shadow: white 1px 1px 1px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 20px;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  text-shadow: white 1px 1px 1px;
 }
 
 .schedule-tbl td {
-	line-height: 20px;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	border-bottom: 1px solid #fff;
-	border-top: 1px solid #fff;
+  line-height: 20px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid #fff;
+  border-top: 1px solid #fff;
 }
 
 .schedule-tbl tbody tr:nth-child(odd) {
@@ -92,6 +93,19 @@ body {
 
 .schedule-tbl td.name-header {
   text-align: center;
+}
+
+.schedule-tbl th.current-date {
+  background-color: #a8a822;
+  color: #330000;
+}
+
+.schedule-tbl td.current-date {
+  background-color: #d8d833;
+}
+
+.schedule-tbl td.current-date:hover {
+  background-color: #eaea44;
 }
 
 .schedule-tbl td.day {
