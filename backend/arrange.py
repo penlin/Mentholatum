@@ -161,6 +161,7 @@ def arrange(nurse_path, year, month):
           personal_class_info[name][day] = key
   
 
+  results["人班表"] = dict()
   header = "人員"
   wkd = weekday
   for day in xrange(1, days + 1):
@@ -170,6 +171,7 @@ def arrange(nurse_path, year, month):
   for x in op:
     if not personal_class_info.has_key(x):
       continue
+    results["人班表"][x] = list()
     k = x
     v = personal_class_info[x]
     output = k
@@ -177,17 +179,20 @@ def arrange(nurse_path, year, month):
     for day in xrange(1,days+1):
       if v.has_key(day):
         output += "," + output_format[v[day]]
+        results["人班表"][k].append(output_format[v[day]])
       else:
         offday_info[x]['off'] += 1
         if wkd % 7 == 0 or wkd % 7 == 6:
           offday_info[x]['weekend'] += 1
         output += ",OFF"
+        results["人班表"][k].append("OFF")
       wkd += 1
     #print len(output.split(','))
     output += ",休假:".decode('utf-8') + str(offday_info[x]['off'])
     output += ",週末休假:".decode('utf-8') + str(offday_info[x]['weekend'])
     print output.encode('utf-8')
   #print results
+
   with codecs.open("result.json", "w", encoding='utf-8') as f:
     for k,v in results.iteritems():
       print "day " + str(k)
