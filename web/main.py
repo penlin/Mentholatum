@@ -1,8 +1,12 @@
 #-*- coding:utf-8 -*-
+import sys
+sys.path.append('../../');
+
 import os
 import ws_api
 import json
 from bottle import route, run, template, get, static_file, url
+from Mentholatum.backend.arrange import *
 
 @route('/js/<filename:re:.*\.js>')
 def javascript(filename):
