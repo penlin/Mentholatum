@@ -1,0 +1,41 @@
+/* calendar related style */
+body {
+  margin: 40px 10px;
+  padding: 0;
+  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+  font-size: 14px;
+}
+
+#calendar {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.fc-content {
+  height: 30px;
+}
+
+span.fc-title {
+  display: block;
+}
+
+span.fc-time {
+  display: none;
+}
+
+td.fc-day:hover{
+  background: lightgreen;
+}
+
+/*Allow pointer-events through*/
+.fc-slats, /*horizontals*/
+.fc-content-skeleton, /*day numbers*/
+.fc-bgevent-skeleton /*events container*/{
+  pointer-events:none
+}
+
+/*Turn pointer events back on*/
+.fc-bgevent,
+.fc-event-container{
+  pointer-events:auto; /*events*/
+}
