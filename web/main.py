@@ -5,7 +5,7 @@ sys.path.append('../../');
 import os
 import ws_api
 import json
-from bottle import route, run, template, get, static_file, url
+from bottle import route, run, template, get, static_file, post, request
 from Mentholatum.backend.arrange import *
 
 @route('/js/<filename:re:.*\.js>')
@@ -26,6 +26,18 @@ def test():
   schedule.append({'title':'Test Event 1 Blue','start':'2015-10-25T21:00:00','end':'2015-10-26T02:00:00','color':'#33F'})
   schedule.append({'title':'Test Event 2 Red','start':'2015-10-10T02:00:00','end':'2015-10-10T07:00:00','color':'#F33'})
   return template('tpl/mentholatum',schedule_json_arr=json.dumps(schedule))
+
+@post('/do_upload')
+def do_upload():
+  upload   = request.files.get('upload')
+  name, ext = os.path.splitext(upload.filename)
+  if ext not in ('.csv','.txt'):
+    # redirect to error page or the original page
+    return 'File extension not allowed.'
+  save_path = './upload'
+  upload.save(save_path)
+  # TODO: should redirect to some other page
+  return 'OK'
 
 @get('/<year>-<month>')
 def tbl_layout(year, month):
