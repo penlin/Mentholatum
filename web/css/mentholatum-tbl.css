@@ -61,11 +61,19 @@ div.container {
   width: 60%;
 }
 
+.bar-item a {
+  text-decoration: none;
+}
+
 .last-month , .next-month , .cur-month{
   display: block;
   vertical-align: middle;
   text-align: center;
   margin:auto;
+}
+
+button.last-month, button.next-month {
+  cursor: pointer;
 }
 
 #Mentholatum-tbl {
@@ -111,7 +119,7 @@ div.container {
 .schedule-tbl td {
   line-height: 20px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
   border-bottom: 1px solid #fff;
   border-top: 1px solid #fff;

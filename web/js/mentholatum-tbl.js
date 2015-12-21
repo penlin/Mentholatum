@@ -1,5 +1,12 @@
 
+var NOT_CONFIG_MONTH = '<p>This month has not been set yet!</p><p>Please click "Upload" button above to upload configuration file to schedule this month!</p>';
+
 function initMentholatumTbl(result) {
+  if (jQuery.isEmptyObject(result)) {
+	$('#Mentholatum-tbl').html(NOT_CONFIG_MONTH);
+	return
+  }
+
   var headHTML = '<thead><tr><th scope="col" class="Name">名字</th>';
   var bodyHTML = '<tbody>';
   var headerRenderDone = false;
@@ -12,20 +19,20 @@ function initMentholatumTbl(result) {
       }
       bodyHTML += '<td class="normal d' + day;
       switch(s){
-        case '7-3':
+        case '7-3\'':
           bodyHTML += ' day ';
           break;
-        case '3-11':
+        case '3-11\'':
           bodyHTML += ' night ';
           break;
-        case '11-7':
+        case '11-7\'':
           bodyHTML += ' dawn ';
           break;
         case 'OFF':
           bodyHTML += ' break ';
           break;
       }
-      bodyHTML += '">' + s + '</td>';
+      bodyHTML += '">' + s.replace('\'','') + '</td>';
       day++;
     });
     bodyHTML += '</tr>';

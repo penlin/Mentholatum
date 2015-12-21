@@ -53,9 +53,11 @@
       </div>
       <div class="modal-body">
         <form action="/do_upload" method="post" enctype="multipart/form-data" style="vertical-align:middle;">
-          <p style="float:top;font-size:14px;">csv format with .csv or .txt filename extension.</p>
+          <p style="float:top;font-size:14px;margin-bottom:5px;">csv format with .csv or .txt filename extension.</p>
 		  <br/>
-          <input type="file" name="upload" style="float:left;"/> 
+          <input type="month" name="upload_month" id="modal-upload-year" required="required" style="float:left;margin-bottom:10px;"/>
+          <br/>
+          <input type="file" name="upload" style="float:left;" required="required"/> 
           <input type="submit" value="Upload" style="float:right;"/> 
         </form>
       </div>
