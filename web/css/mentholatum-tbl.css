@@ -1,10 +1,79 @@
 
 body {
-  margin: 40px 10px;
   padding: 0;
+  margin: 0 auto;
   font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
   font-size: 14px;
   text-align: center;
+}
+
+.navigation ul.horizontal {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background-color: #4444dc;
+}
+
+.navigation ul.horizontal li {
+  float: left;
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+.navigation ul.horizontal li a {
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navigation ul.horizontal li a:hover {
+  background-color: #8080F0;
+}
+
+.navigation ul.horizontal li a.active {
+  background-color: #4CAF59;
+}
+
+div.container {
+  padding: 40px 20px;
+}
+
+.header-bar {
+  margin: 5px 0px 20px 0px;
+  padding: 2px 0px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  display: table;
+}
+
+.bar-item {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 20%;
+}
+
+.bar-item.center {
+  width: 60%;
+}
+
+.bar-item a {
+  text-decoration: none;
+}
+
+.last-month , .next-month , .cur-month{
+  display: block;
+  vertical-align: middle;
+  text-align: center;
+  margin:auto;
+}
+
+button.last-month, button.next-month {
+  cursor: pointer;
 }
 
 #Mentholatum-tbl {
@@ -38,21 +107,22 @@ body {
 }
 
 .schedule-tbl th {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 17px;
-	line-height: 20px;
-	font-style: normal;
-	font-weight: normal;
-	text-align: center;
-	text-shadow: white 1px 1px 1px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 20px;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  text-shadow: white 1px 1px 1px;
 }
 
 .schedule-tbl td {
-	line-height: 20px;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	border-bottom: 1px solid #fff;
-	border-top: 1px solid #fff;
+  line-height: 20px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  text-align: center;
+  border-bottom: 1px solid #fff;
+  border-top: 1px solid #fff;
 }
 
 .schedule-tbl tbody tr:nth-child(odd) {
@@ -65,6 +135,19 @@ body {
 
 .schedule-tbl td.name-header {
   text-align: center;
+}
+
+.schedule-tbl th.current-date {
+  background-color: #a8a822;
+  color: #330000;
+}
+
+.schedule-tbl td.current-date {
+  background-color: #d8d833;
+}
+
+.schedule-tbl td.current-date:hover {
+  background-color: #eaea44;
 }
 
 .schedule-tbl td.day {
@@ -80,5 +163,5 @@ body {
 }
 
 .schedule-tbl td.break {
-  color:#00ff00;
+  color:#34ca34;
 }
