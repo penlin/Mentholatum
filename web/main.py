@@ -6,9 +6,9 @@ import os
 import time
 import ws_api
 import json
-from bottle import route, run, template, get, static_file, post, request, redirect, abort
+from bottle import route, run, template, get, static_file, post, request, response, redirect, abort
 from Mentholatum.backend.arrange import *
-from calendar import IllegalMonthError
+from calendar import IllegalMonthError, monthrange
 
 @route('/js/<filename:re:.*\.js>')
 def javascript(filename):
@@ -23,7 +23,7 @@ def stylesheet(filename):
 	return static_file(filename, root='css')
 
 @get('/')
-def test():
+def default():
   # temporarily use table style as default
   redirect(time.strftime("/%Y-%m"))
   
@@ -48,6 +48,35 @@ def do_upload():
   upload.save(save_path, overwrite=True);
 
   redirect("/"+date);
+
+@get('/export')
+def export():
+  querydict = request.query.decode()
+  year = querydict['year']
+  month = querydict['month']
+  try:
+    result = arrange('./upload-'+year+'-'+month, int(year), int(month))
+    weekdays, day = monthrange(int(year),int(month))
+  except ILLegalMonthError:
+    abort(404,"Request file is not found.")
+  except IOError as e:
+    if e.errno is not 2:
+      abort(404,"IOError {0}:{1}".format(e.errno, e.strerror))
+    else:
+      abort(404,"Request file is not found.")
+  except:
+    abort(500,"Internal error.")
+  else:
+    strbuf = "人員"
+    for d in xrange(1,day+1):
+      strbuf += (","+str(d))
+    for a,b in result["人班表"].iteritems():
+      strbuf += ("\n"+a.encode("utf-8")+","+",".join(b))
+    print '[INFO] export schedule of ', year, '-',month, ' in csv format.'
+    print strbuf
+    response.headers['Content-Type'] = 'text/csv; charset=UTF-8'
+    response.headers['Content-Disposition'] = 'attachment; filename="schedule' + year + '' + month + '.csv"'
+    return strbuf
 
 @get('/<year>-<month>')
 def tbl_layout(year, month):

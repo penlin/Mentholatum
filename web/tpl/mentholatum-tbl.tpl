@@ -18,6 +18,13 @@
       var nextmonth = (gCurMonth === 12)?((gCurYear+1).toString()+'-1'):(gCurYear.toString()+'-'+(gCurMonth+1).toString());
       $('button.next-month').html(nextmonth);
       $('a#next-month').attr('href','/'+nextmonth)
+
+      if (jQuery.isEmptyObject(result)) {
+	    $("a#download-link").hide()
+      }
+	  else {
+        $("a#download-link").attr("href","/export?year="+gCurYear+"&month="+gCurMonth).show();
+      }
     });
   </script>
 </head>
@@ -27,7 +34,7 @@
       <li><a href="javascript:void(0)" class="active">Home</a></li>
       <li><a href="javascript:void(0)">Style</a></li>
       <li><a href="#modal-upload">Upload</a></li>
-      <li><a href="javascript:void(0);">Download</a></li>
+      <li><a href="javascript:void(0)" id="download-link">Download</a></li>
     </ul>
   </div>
   <div class="container">
