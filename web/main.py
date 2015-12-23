@@ -52,8 +52,19 @@ def do_upload():
 @get('/export')
 def export():
   querydict = request.query.decode()
-  year = querydict['year']
-  month = querydict['month']
+  if 'year' in querydict:
+    year = querydict['year']
+  else :
+    year = time.strftime("%Y")
+  if 'month' in querydict:
+    month = querydict['month']
+  else :
+    month = time.strftime("%m")
+  if 'fmt' in querydict:
+    fmt = querydict['fmt']
+  else :
+    fmt = 'csv'
+
   try:
     result = arrange('./upload-'+year+'-'+month, int(year), int(month))
     weekdays, day = monthrange(int(year),int(month))
@@ -72,7 +83,7 @@ def export():
       strbuf += (","+str(d))
     for a,b in result["人班表"].iteritems():
       strbuf += ("\n"+a.encode("utf-8")+","+",".join(b))
-    print '[INFO] export schedule of ', year, '-',month, ' in csv format.'
+    print '[INFO] export schedule of ', year, '-',month, ' in ', fmt , ' format.'
     print strbuf
     response.headers['Content-Type'] = 'text/csv; charset=UTF-8'
     response.headers['Content-Disposition'] = 'attachment; filename="schedule' + year + '' + month + '.csv"'

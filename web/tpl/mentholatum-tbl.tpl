@@ -23,7 +23,9 @@
 	    $("a#download-link").hide()
       }
 	  else {
-        $("a#download-link").attr("href","/export?year="+gCurYear+"&month="+gCurMonth).show();
+        $("a.download-link").each(function() {
+          $(this).attr("href","/export?year="+gCurYear+"&month="+gCurMonth+"&fmt="+$(this).attr("fmt")).show();
+        });
       }
     });
   </script>
@@ -34,7 +36,12 @@
       <li><a href="javascript:void(0)" class="active">Home</a></li>
       <li><a href="javascript:void(0)">Style</a></li>
       <li><a href="#modal-upload">Upload</a></li>
-      <li><a href="javascript:void(0)" id="download-link">Download</a></li>
+      <li><a href="javascript:void(0)">Download</a>
+        <ul>
+          <li><a href="#" class="download-link" fmt="csv">CSV</a></li>
+          <li><a href="#" class="download-link" fmt="excel">EXCEL</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div class="container">

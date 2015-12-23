@@ -7,7 +7,7 @@ body {
   text-align: center;
 }
 
-.navigation ul.horizontal {
+.navigation ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -15,26 +15,61 @@ body {
   background-color: #4444dc;
 }
 
-.navigation ul.horizontal li {
+.navigation ul li {
   float: left;
-  display: list-item;
+  display: inline-block;
   text-align: -webkit-match-parent;
+  border-bottom: none;
+  width: 100px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
 }
 
-.navigation ul.horizontal li a {
-  display: inline-block;
+.navigation ul li a {
+  display: block;
   color: #fff;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  border-bottom: none;
 }
 
-.navigation ul.horizontal li a:hover {
+.navigation ul li a:hover {
   background-color: #8080F0;
 }
 
-.navigation ul.horizontal li a.active {
+.navigation ul li a.active {
   background-color: #4CAF59;
+}
+
+.navigation li ul {
+  position: absolute;
+  display: none;
+  width: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation li:hover ul {
+  display: block;
+}
+
+.navigation li:hover ul li {
+  display: block;
+}
+
+.navigation li ul li a{
+  background-color: #8080F0;
+}
+
+.navigation li ul li a:hover {
+  background-color: #4CAF59;
+}
+
+.navigation li li {
+  font-size: 12px;
 }
 
 div.container {
