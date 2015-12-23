@@ -27,6 +27,7 @@
       <li><a href="javascript:void(0)" class="active">Home</a></li>
       <li><a href="javascript:void(0)">Style</a></li>
       <li><a href="#modal-upload">Upload</a></li>
+      <li><a href="javascript:void(0);">Download</a></li>
     </ul>
   </div>
   <div class="container">
