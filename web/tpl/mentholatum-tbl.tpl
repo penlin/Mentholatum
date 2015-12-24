@@ -18,6 +18,15 @@
       var nextmonth = (gCurMonth === 12)?((gCurYear+1).toString()+'-1'):(gCurYear.toString()+'-'+(gCurMonth+1).toString());
       $('button.next-month').html(nextmonth);
       $('a#next-month').attr('href','/'+nextmonth)
+
+      if (jQuery.isEmptyObject(result)) {
+	    $("a#download-link").hide()
+      }
+	  else {
+        $("a.download-link").each(function() {
+          $(this).attr("href","/export?year="+gCurYear+"&month="+gCurMonth+"&fmt="+$(this).attr("fmt")).show();
+        });
+      }
     });
   </script>
 </head>
@@ -27,6 +36,12 @@
       <li><a href="javascript:void(0)" class="active">Home</a></li>
       <li><a href="javascript:void(0)">Style</a></li>
       <li><a href="#modal-upload">Upload</a></li>
+      <li><a href="javascript:void(0)">Download</a>
+        <ul>
+          <li><a href="#" class="download-link" fmt="csv">CSV</a></li>
+          <li><a href="#" class="download-link" fmt="excel">EXCEL</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div class="container">
