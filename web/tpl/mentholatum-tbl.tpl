@@ -32,9 +32,14 @@
 </head>
 <body>
   <div class="navigation">
-    <ul class="horizontal blue">
+    <ul class="blue">
       <li><a href="javascript:void(0)" class="active">Home</a></li>
-      <li><a href="javascript:void(0)">Style</a></li>
+      <li><a href="javascript:void(0)">Style</a>
+        <ul>
+          <li><a href="#">Table</a></li>
+          <li><a href="#">Calendar</a></li>
+        </ul>
+      </li>
       <li><a href="#modal-upload">Upload</a></li>
       <li><a href="javascript:void(0)">Download</a>
         <ul>

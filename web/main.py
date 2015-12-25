@@ -5,7 +5,9 @@ sys.path.append('../../');
 import os
 import time
 import ws_api
+import utils
 import json
+from download import exportSchedule
 from bottle import route, run, template, get, static_file, post, request, response, redirect, abort
 from Mentholatum.backend.arrange import *
 from calendar import IllegalMonthError, monthrange
@@ -46,29 +48,16 @@ def do_upload():
   print '[INFO] upload configuration file for month:',date;
   save_path = './upload-' + date;
   upload.save(save_path, overwrite=True);
-
   redirect("/"+date);
 
 @get('/export')
 def export():
-  querydict = request.query.decode()
-  if 'year' in querydict:
-    year = querydict['year']
-  else :
-    year = time.strftime("%Y")
-  if 'month' in querydict:
-    month = querydict['month']
-  else :
-    month = time.strftime("%m")
-  if 'fmt' in querydict:
-    fmt = querydict['fmt']
-  else :
-    fmt = 'csv'
-
+  year,month,fmt = utils.parseExportParamFromQuery(request.query.decode())
   try:
-    result = arrange('./upload-'+year+'-'+month, int(year), int(month))
-    weekdays, day = monthrange(int(year),int(month))
-  except ILLegalMonthError:
+    iyear = int(year)
+    imonth = int(month)
+    result = arrange('./upload-'+year+'-'+month, iyear, imonth)
+  except IllegalMonthError:
     abort(404,"Request file is not found.")
   except IOError as e:
     if e.errno is not 2:
@@ -78,16 +67,20 @@ def export():
   except:
     abort(500,"Internal error.")
   else:
-    strbuf = "人員"
-    for d in xrange(1,day+1):
-      strbuf += (","+str(d))
-    for a,b in result["人班表"].iteritems():
-      strbuf += ("\n"+a.encode("utf-8")+","+",".join(b))
+    buf = exportSchedule(result, iyear, imonth, fmt)
+    if buf == None:
+      print 'exportSchedule return result None.'
+      abort(500, "Internal error.")
+
     print '[INFO] export schedule of ', year, '-',month, ' in ', fmt , ' format.'
-    print strbuf
-    response.headers['Content-Type'] = 'text/csv; charset=UTF-8'
-    response.headers['Content-Disposition'] = 'attachment; filename="schedule' + year + '' + month + '.csv"'
-    return strbuf
+    #print buf
+    if fmt == 'csv':
+      response.headers['Content-Type'] = 'text/csv; charset=UTF-8'
+      response.headers['Content-Disposition'] = 'attachment; filename="schedule' + year + '' + month + '.csv"'
+    elif fmt == 'excel':
+      response.headers['Content-Type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8'
+      response.headers['Content-Disposition'] = 'attachment; filename="schedule' + year + '' + month + '.xlsx"' 
+    return buf
 
 @get('/<year>-<month>')
 def tbl_layout(year, month):
