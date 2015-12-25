@@ -21,11 +21,8 @@
 
       if (jQuery.isEmptyObject(result)) {
 	    $("a#download-link").hide()
-      }
-	  else {
-        $("a.download-link").each(function() {
-          $(this).attr("href","/export?year="+gCurYear+"&month="+gCurMonth+"&fmt="+$(this).attr("fmt")).show();
-        });
+      }else {
+	    $("a#download-link").show()
       }
     });
   </script>
@@ -41,10 +38,10 @@
         </ul>
       </li>
       <li><a href="#modal-upload">Upload</a></li>
-      <li><a href="javascript:void(0)">Download</a>
+      <li><a href="javascript:void(0)" id="download-link">Download</a>
         <ul>
-          <li><a href="#" class="download-link" fmt="csv">CSV</a></li>
-          <li><a href="#" class="download-link" fmt="excel">EXCEL</a></li>
+          <li><a href="/export?year={{ m_year }}&month={{ m_month }}&fmt=csv" class="download-link">CSV</a></li>
+          <li><a href="/export?year={{ m_year }}&month={{ m_month }}&fmt=excel" class="download-link">EXCEL</a></li>
         </ul>
       </li>
     </ul>
@@ -52,10 +49,10 @@
   <div class="container">
     <div class="header-bar">
       <div class="bar-item">
-        <a id="last-month"><button  type="button" class="last-month"></button></a>
+        <a id="last-month"><button type="button" class="last-month"></button></a>
       </div>
       <div class="bar-item center">
-        <h1 class="cur-month">{{ m_year }}-{{ m_month }}</h1>
+        <h1 class="cur-month"><a href="#modal-">{{ m_year }}-{{ m_month }}</a></h1>
       </div>
       <div class="bar-item">
         <a id="next-month"><button  type="button" class="next-month"></button></a>
