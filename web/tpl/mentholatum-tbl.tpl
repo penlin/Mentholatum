@@ -4,6 +4,7 @@
   <script type='text/javascript' src='https://code.jquery.com/jquery.min.js'></script>
   <link rel='stylesheet' href='/css/mentholatum-tbl.css' />
   <link rel='stylesheet' href='/css/modal.css' />
+  <link rel='stylesheet' href='/css/jquery.monthpicker.css' />
   <script>
     var gCurYear = parseInt({{ m_year }});
     var gCurMonth = parseInt({{ m_month }});
@@ -24,6 +25,15 @@
       }else {
 	    $("a#download-link").show()
       }
+
+      $('#monthpicker').monthpicker({
+        years:         [2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010],
+        default_year:  {{ m_year }},
+        topOffset:     6,
+        onMonthSelect: function(m, y) {
+          document.location.href = ('/' + y + '-' + (m+1));
+        }		
+      });
     });
   </script>
 </head>
@@ -52,7 +62,7 @@
         <a id="last-month"><button type="button" class="last-month"></button></a>
       </div>
       <div class="bar-item center">
-        <h1 class="cur-month"><a href="#modal-">{{ m_year }}-{{ m_month }}</a></h1>
+        <h1 class="cur-month"><a href="#monthpicker" id="monthpicker">{{ m_year }}-{{ m_month }}</a></h1>
       </div>
       <div class="bar-item">
         <a id="next-month"><button  type="button" class="next-month"></button></a>
@@ -80,6 +90,8 @@
       </div>
     </div>
   </div>
+  <!-- end of upload dialog -->
 </body>
 <script type='text/javascript' src='/js/mentholatum-tbl.js'></script>
+<script type='text/javascript' src='/js/jquery.monthpicker.js'></script>
 </html>
