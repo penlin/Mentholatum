@@ -18,7 +18,7 @@ def exportSchedule(result, year, month, fmt='csv'):
   elif fmt == 'excel':
     f = StringIO.StringIO() # create a file-like object
     wbk = xlwt.Workbook()
-    wbk.add_sheet("人班表".decode("utf-8"))
+    wbk.add_sheet(("{0}-{1} ".format(year,month)+"人班表").decode("utf-8"))
     sheet = wbk.get_sheet(0)
     sheet.write(0, 0, "名字".decode("utf-8"))
     for d in xrange(1, day+1):
