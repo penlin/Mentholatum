@@ -48,3 +48,22 @@ function initMentholatumTbl(result) {
     $('.d' + d.getDate()).addClass('current-date');
   }
 }
+
+function download(year, month, format) {
+  var csv = ''
+  $('#Mentholatum-tbl th').each(function(){
+	csv = (csv + $(this).html() + ',')
+  });
+
+  csv += "\n"
+  $('#Mentholatum-tbl tbody tr').each(function(){
+    jQuery(this).find('td').each(function(){
+		csv = (csv + $(this).html() + ',')
+	})
+	csv += "\n"
+  });
+
+  console.log('download ' + year.toString() + '-' + month.toString() + ' in csv format:' + csv)
+
+  window.open("data:text/csv;charset=utf-8," + encodeURIComponent(csv))
+}
